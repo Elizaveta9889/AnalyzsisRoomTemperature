@@ -1,16 +1,31 @@
+import requests
 import pandas as pd
 from modules import DateConvertor as dc
 
+# new file???
+def url_is_valid(url):
+    try:
+        requests.get(url)
+        return True
+    except Exception as error:
+        print('Cannot set sensor info from the url: ' + url + " :")
+        print(repr(error))
+        return False
+
 
 def get_sensor_info_from_url(url, sep=" "):
-    return pd.read_csv(url, sep=sep, header=None, names=["date", "time", "temp"])
+    if url_is_valid(url):
+        return pd.read_csv(url, sep=sep, header=None, names=["date", "time", "temp"])
+    else:
+        print('get_sensor_info_from_url returned empty DataFrame')
+        return pd.DataFrame()
 
 
 # get all sensor data
-def get_sensor_info(sensor_info, sep=" ", first_date_time=None):
+def get_sensor_info(sensor_info, first_date_time=None, sep=" "):
     # data_count needs to check that all data was added
     data_count = 0
-    # get dataframes from the URL
+    # get DataFrames from the URL
     for sensor in sensor_info.keys():
         sensor_info[sensor] = get_sensor_info_from_url(sensor_info[sensor], sep)
         data_count += sensor_info[sensor].shape[0]
