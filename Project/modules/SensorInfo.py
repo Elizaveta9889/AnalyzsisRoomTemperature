@@ -2,7 +2,7 @@ import pandas as pd
 from modules import DateConvertor as dc
 
 
-def get_sensor_info_from_url(url, sep=""):
+def get_sensor_info_from_url(url, sep=" "):
     return pd.read_csv(url, sep=sep, header=None, names=["date", "time", "temp"])
 
 
