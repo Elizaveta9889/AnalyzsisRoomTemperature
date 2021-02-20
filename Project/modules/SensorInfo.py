@@ -23,16 +23,17 @@ def get_sensor_info_from_url(url, sep=" "):
 
 # get all sensor data
 def get_sensor_info(sensor_info, first_date_time=None, sep=" "):
+    sensor_info_tmp = dict()
     # data_count needs to check that all data was added
     data_count = 0
     # get DataFrames from the URL
     for sensor in sensor_info.keys():
-        sensor_info[sensor] = get_sensor_info_from_url(sensor_info[sensor], sep)
-        data_count += sensor_info[sensor].shape[0]
+        sensor_info_tmp[sensor] = get_sensor_info_from_url(sensor_info[sensor], sep)
+        data_count += sensor_info_tmp[sensor].shape[0]
         # rename temp column for every sensor
-        sensor_info[sensor] = sensor_info[sensor].rename(columns={"temp": sensor + "_temp"})
+        sensor_info_tmp[sensor] = sensor_info_tmp[sensor].rename(columns={"temp": sensor + "_temp"})
     # create summary df
-    sensor_info_val = sensor_info.values()
+    sensor_info_val = sensor_info_tmp.values()
     # convert values of time column to time
     df = pd.concat(sensor_info_val, sort=True)
     dc.df_add_datetime(df)
