@@ -42,4 +42,4 @@ def get_sensor_info(sensor_info, first_date_time=None, sep=" "):
     # set index and resample
     df = df.set_index('date_time')
     df = df.resample("1H").mean()
-    return df.round(2), data_count
+    return df.round(2)
