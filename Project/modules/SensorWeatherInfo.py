@@ -22,7 +22,7 @@ def get_dataset(sensor_dict):
 def update_dataset(sensor_dict, origin_df):
     if dataset.index.dtype != np.dtype('datetime64[ns]'):
         print('The Dataframe does not have datatime indexes, returned origin Dataframe')
-        retutn origin_df
+        return origin_df
     # get new sensor info since last uploaded time
     new_sensor_info = sinf.get_sensor_info(sensor_dict, origin_df.tail(1).index[0])
     # get period of data (need to get weather info)
