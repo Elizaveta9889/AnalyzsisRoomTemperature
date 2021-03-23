@@ -20,7 +20,7 @@ def get_dataset(sensor_dict):
 
 # if we already have dataset, we need to update it to now
 def update_dataset(sensor_dict, origin_df):
-    if dataset.index.dtype != np.dtype('datetime64[ns]'):
+    if origin_df.index.dtype != np.dtype('datetime64[ns]'):
         print('The Dataframe does not have datatime indexes, returned origin Dataframe')
         return origin_df
     # get new sensor info since last uploaded time
