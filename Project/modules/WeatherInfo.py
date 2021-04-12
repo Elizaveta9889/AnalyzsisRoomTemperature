@@ -160,5 +160,9 @@ def get_weather_info_period(start, end):
         df_weather = get_weather_info_date(start)
         print(start)
         weather_info = weather_info.append(df_weather)
-        start = weather_info.index[-1]
+        new_start = weather_info.index[-1]
+        if new_start == start:
+          break
+        else:
+          start = new_start
     return weather_info
