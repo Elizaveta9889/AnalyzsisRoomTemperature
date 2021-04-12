@@ -157,7 +157,8 @@ def get_weather_info_date(date):
 def get_weather_info_period(start, end):
     weather_info = pd.DataFrame()
     while start < end:
-        d = get_weather_info_date(start)
-        weather_info = weather_info.append(d)
+        df_weather = get_weather_info_date(start)
+        print(start)
+        weather_info = weather_info.append(df_weather)
         start = weather_info.index[-1]
     return weather_info
