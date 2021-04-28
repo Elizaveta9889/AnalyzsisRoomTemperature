@@ -22,7 +22,7 @@ def get_sensor_info_from_url(url, sep=" "):
 
 
 # get all sensor data
-def get_sensor_info(sensor_info, first_date_time=None, sep=" "):
+def get_sensor_info(sensor_info, first_date_time=None, sep=" ", res_period="1H"):
     sensor_info_tmp = dict()
     # data_count needs to check that all data was added
     data_count = 0
@@ -42,5 +42,5 @@ def get_sensor_info(sensor_info, first_date_time=None, sep=" "):
         df = df[df['date_time'] >= first_date_time]
     # set index and resample
     df = df.set_index('date_time')
-    df = df.resample("1H").mean()
+    df = df.resample(res_period).mean()
     return df.round(2)
