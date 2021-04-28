@@ -10,9 +10,9 @@ def merged_dataframes(sensor_info, weather_info):
 
 
 # if we don't have dataset
-def get_dataset(sensor_dict):
+def get_dataset(sensor_dict, res_period="1H"):
     # get all sensor info
-    new_sensor_info = sinf.get_sensor_info(sensor_dict)
+    new_sensor_info = sinf.get_sensor_info(sensor_dict, res_period)
     # get period of data (need to get weather info)
     new_weather_info = winf.get_weather_info_period(new_sensor_info.index[0], new_sensor_info.tail(1).index[0])
     return merged_dataframes(new_sensor_info, new_weather_info)
