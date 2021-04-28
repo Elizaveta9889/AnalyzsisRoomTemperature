@@ -19,12 +19,12 @@ def get_dataset(sensor_dict):
 
 
 # if we already have dataset, we need to update it to now
-def update_dataset(sensor_dict, origin_df):
+def update_dataset(sensor_dict, origin_df, res_period="1H"):
     if origin_df.index.dtype != np.dtype('datetime64[ns]'):
         print('The Dataframe does not have datatime indexes, returned origin Dataframe')
         return origin_df
     # get new sensor info since last uploaded time
-    new_sensor_info = sinf.get_sensor_info(sensor_dict, origin_df.tail(1).index[0])
+    new_sensor_info = sinf.get_sensor_info(sensor_dict, origin_df.tail(1).index[0], res_period)
     # get period of data (need to get weather info)
     new_weather_info = winf.get_weather_info_period(new_sensor_info.index[0], new_sensor_info.tail(1).index[0])
     return origin_df.append(merged_dataframes(new_sensor_info, new_weather_info))
